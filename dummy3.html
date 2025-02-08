@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Section</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+/* Hero Section */
+.hero {
+    background: #4e73df; /* Blue background */
+    color: white;
+    height: 60vh; /* Reduced height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hero-content {
+    margin-bottom: 30px;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.button-86 {
+    background-color: #ff5c8d; /* Button color */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.button-86:hover {
+    background-color: #f13d69; /* Hover color */
+}
+
+/* Hero Columns */
+.hero-columns {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    width: 100%;
+    text-align: left;
+    padding: 0 20px; /* To ensure proper spacing inside */
+}
+
+.hero-column {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.column-content {
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    font-size: 3rem; /* Adjusted to make the icon visible */
+    color: #4e73df;
+    margin-right: 15px;
+}
+
+.text {
+    font-size: 1rem;
+    color: #333;
+}
+
+/* Features Section */
+.features {
+    background: #f1f1f1;
+    padding: 50px 0;
+}
+
+.feature-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    justify-items: center;
+}
+
+.feature {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+}
+
+.feature-icon {
+    font-size: 2rem;
+    color: #4e73df;
+    margin-bottom: 10px;
+}
+
+.feature p {
+    font-size: 1rem;
+    color: #333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-columns {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-columns {
+        grid-template-columns: 1fr;
+    }
+}
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Our Service</h1>
+            <p>Your satisfaction is our priority. Let's make your experience unforgettable.</p>
+            <button class="button-86" onclick="window.location.href='contact.html'">Book Now</button>
+        </div>
+        <div class="hero-columns">
+            <div class="hero-column">
+                <div class="column-content">
+                    <div class="icon">
+                        &#9881; <!-- Gear icon -->
+                    </div>
+                    <p class="text">Column 1</p>
+                </div>
+            </div>
+            <div class="hero-column">
+                <div class="column-content">
+                    <div class="icon">
+                        &#128340; <!-- Clock icon -->
+                    </div>
+                    <p class="text">Column 2</p>
+                </div>
+            </div>
+            <div class="hero-column">
+                <div class="column-content">
+                    <div class="icon">
+                        &#128100; <!-- Users icon -->
+                    </div>
+                    <p class="text">Column 3</p>
+                </div>
+            </div>
+            <div class="hero-column">
+                <div class="column-content">
+                    <div class="icon">
+                        &#128077; <!-- Thumbs Up icon -->
+                    </div>
+                    <p class="text">Column 4</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

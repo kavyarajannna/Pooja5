@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Header</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Button 86 styles */
+        .button-86 {
+            all: unset;
+            width: 100px;
+            height: 30px;
+            font-size: 16px;
+            background: transparent;
+            border: none;
+            position: relative;
+            color: #f0f0f0;
+            cursor: pointer;
+            z-index: 1;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+        .button-86::after, .button-86::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            z-index: -99999;
+            transition: all .4s;
+        }
+        .button-86::before {
+            transform: translate(0%, 0%);
+            width: 100%;
+            height: 100%;
+            background: #636b46;
+            border-radius: 10px;
+        }
+        .button-86::after {
+            transform: translate(10px, 10px);
+            width: 35px;
+            height: 35px;
+            background: #ffffff15;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border-radius: 50px;
+        }
+        .button-86:hover::before {
+            transform: translate(5%, 20%);
+            width: 110%;
+            height: 110%;
+        }
+        .button-86:hover::after {
+            border-radius: 10px;
+            transform: translate(0, 0);
+            width: 100%;
+            height: 100%;
+        }
+        .button-86:active::after {
+            transition: 0s;
+            transform: translate(0, 5%);
+        }
+
+        /* Hamburger menu animation */
+        .hamburger-menu {
+            font-size: 30px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .hamburger-menu.open {
+            transform: rotate(90deg);
+        }
+
+        /* Close button animation */
+        .close-menu {
+            font-size: 30px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .close-menu.open {
+            transform: rotate(180deg);
+        }
+
+        /* Mobile menu background color */
+        header, #mobile-menu, #dropdown-menu {
+            background-color: #e1c99c;
+        }
+
+        /* Text and hover color */
+        header, .hamburger-menu, .close-menu, .menu a, .button-86 {
+            color: #10375C;
+        }
+
+        .menu a:hover, .button-86:hover {
+            color: #6e2a36;
+        }
+
+        /* Adjust dropdown background color for larger screens */
+        #dropdown-menu {
+            background-color: #e1c99c;
+        }
+
+        /* Dropdown hover effect */
+        #dropdown-menu a:hover {
+            background-color: #6e2a36;
+            color: #fff;
+        }
+    </style>
+</head>
+<body >
+    <header class="flex items-center justify-between p-4 w-full">
+        <a href="index.html" class="text-xl font-bold">LOGO</a>
+        
+        <nav class="hidden md:flex space-x-6 menu">
+            <a href="#" class="hover:text-yellow-400">Home</a>
+            <div class="relative">
+                <button id="pooja-button" class="hover:text-yellow-400">Pooja</button>
+                <div id="dropdown-menu" class="absolute left-0 hidden mt-2 p-2 rounded">
+                    <a href="#" class="block px-4 py-2 hover:bg-gray-600">Option 1</a>
+                    <a href="#" class="block px-4 py-2 hover:bg-gray-600">Option 2</a>
+                    <a href="#" class="block px-4 py-2 hover:bg-gray-600">Option 3</a>
+                    <a href="#" class="block px-4 py-2 hover:bg-gray-600">Option 4</a>
+                </div>
+            </div>
+            <a href="#" class="hover:text-yellow-400">Contact Us</a>
+        </nav>
+
+        <button class="button-86 hidden md:flex" onclick="window.location.href='tel:+18310214624'">Button</button>
+
+
+        <!-- Hamburger Menu -->
+        <button class="hamburger-menu md:hidden" onclick="toggleMenu()">☰</button>
+
+        <!-- Close Menu -->
+        <button class="close-menu hidden md:hidden" onclick="closeMenu()">✖</button>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden bg-gray-800 p-4 md:hidden">
+        <a href="#" class="block py-2">Home</a>
+        <button class="w-full text-left py-2" onclick="toggleMobileDropdown()">Pooja</button>
+        <div id="mobile-dropdown-menu" class="hidden mt-2 bg-gray-700 p-2 rounded">
+            <a href="#" class="block px-4 py-2 hover:bg-gray-600">Option 1</a>
+            <a href="#" class="block px-4 py-2 hover:bg-gray-600">Option 2</a>
+            <a href="#" class="block px-4 py-2 hover:bg-gray-600">Option 3</a>
+            <a href="#" class="block px-4 py-2 hover:bg-gray-600">Option 4</a>
+        </div>
+        <a href="#" class="block py-2">Contact Us</a>
+        <!-- Mobile Menu Button for Call -->
+<button class="button-86 w-auto mt-2" onclick="window.location.href='tel:+18310214624'">Button</button>
+
+    </div>
+
+    <script>
+        // Toggle dropdown visibility when Pooja button is clicked
+        document.getElementById('pooja-button').addEventListener('click', function() {
+            const dropdown = document.getElementById('dropdown-menu');
+            dropdown.classList.toggle('hidden');
+        });
+
+        // Toggle mobile dropdown visibility
+        function toggleMobileDropdown() {
+            document.getElementById('mobile-dropdown-menu').classList.toggle('hidden');
+        }
+
+        // Toggle menu (for mobile view)
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const hamburger = document.querySelector('.hamburger-menu');
+            const closeButton = document.querySelector('.close-menu');
+            menu.classList.toggle('hidden');
+            hamburger.classList.toggle('hidden');
+            closeButton.classList.toggle('hidden');
+        }
+
+        // Close the mobile menu and dropdown
+        function closeMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const hamburger = document.querySelector('.hamburger-menu');
+            const closeButton = document.querySelector('.close-menu');
+            menu.classList.add('hidden');
+            hamburger.classList.remove('hidden');
+            closeButton.classList.add('hidden');
+        }
+
+        // Close dropdown if clicked outside of it
+        window.addEventListener('click', function(event) {
+            const dropdownMenu = document.getElementById('dropdown-menu');
+            if (!dropdownMenu.contains(event.target) && !document.getElementById('pooja-button').contains(event.target)) {
+                dropdownMenu.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

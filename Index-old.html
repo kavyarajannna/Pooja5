@@ -1,0 +1,2462 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Header with Call Now</title>
+    <link rel="stylesheet" href="">
+    <!-- Include FontAwesome CDN in the <head> for social icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+
+
+    <style>
+        /* General Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Open Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, Liberation Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.856), rgba(255, 255, 255, 0.838)),
+                url('Screenshot%202025-01-30%20233743.png');
+            background-size: auto;
+            color: #636b46;
+            /* Ensures repeating works */
+            background-repeat: repeat;
+            /* Repeats the image */
+            background-position: top left;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                background-size: auto;
+                background-repeat: repeat;
+                background-attachment: scroll;
+            }
+        }
+
+
+        /* Header */
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 10%;
+            background-color: #e1c99c;
+            color: #10375C;
+            position: relative;
+        }
+
+        /* Navigation Links */
+        .nav-links ul {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links ul li {
+            margin: 0 15px;
+        }
+
+        .nav-links ul li a {
+            color: #10375C;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .call-now a {
+            text-decoration: none;
+            /* Remove the blue underline */
+        }
+
+        .call-now button {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        /* Hamburger Menu */
+        .hamburger-menu {
+            display: none;
+            /* Initially hide the hamburger menu on desktop */
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 100;
+            height: auto;
+            padding: 5px;
+        }
+
+        .hamburger-menu .bar {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 4px 0;
+            transition: 0.3s;
+        }
+
+        .hamburger-menu.open .bar:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger-menu.open .bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger-menu.open .bar:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+
+            /* On mobile, hide desktop menu */
+            .nav-links {
+                display: none;
+                /* Hide the normal nav links */
+            }
+
+            /* Show the hamburger menu on mobile */
+            .hamburger-menu {
+                display: flex;
+                /* Show hamburger menu on mobile */
+            }
+
+            .call-now {
+                display: none;
+                /* Hide the 'Call Now' button on mobile */
+            }
+
+            /* Mobile Sliding Menu */
+            /* Mobile Sliding Menu */
+            .sliding-menu {
+                display: none;
+                position: fixed;
+                top: 4rem;
+                /* Adjusted to make the hamburger cross mark visible */
+                right: -250px;
+                width: 250px;
+                height: auto;
+                max-height: 60%;
+                background-color: #e1c99c;
+                padding-top: 60px;
+                transition: right 0.3s ease-in-out;
+                z-index: 1000;
+            }
+
+
+            .sliding-menu.open {
+                right: 0;
+                display: block;
+            }
+
+            .sliding-menu ul {
+                list-style: none;
+                padding: 0;
+            }
+
+            .sliding-menu ul li {
+                padding: 10px;
+                text-align: left;
+            }
+
+            .sliding-menu ul li a {
+                color: white;
+                text-decoration: none;
+                font-size: 18px;
+            }
+
+            .sliding-menu ul li button {
+                margin-top: 10px;
+                color: white;
+                background: transparent;
+                border: none;
+                font-size: 16px;
+                cursor: pointer;
+            }
+
+            /* Adjust the hamburger button */
+            .hamburger-menu .bar {
+                width: 30px;
+                height: 4px;
+            }
+        }
+
+        /* Desktop Styles */
+        @media (min-width: 769px) {
+
+            /* On desktop, show the regular navigation links */
+            .nav-links {
+                display: flex;
+            }
+
+            /* Hide the hamburger menu on desktop */
+            .hamburger-menu {
+                display: none;
+            }
+
+            .call-now {
+                display: block;
+                /* Show the 'Call Now' button on desktop */
+            }
+
+            /* Ensure the sliding menu is hidden on desktop */
+            .sliding-menu {
+                display: none;
+            }
+        }
+
+        /* Existing styles remain unchanged */
+        /* Existing styles remain unchanged */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            z-index: 10;
+            border-radius: 1rem;
+            /* Ensure the dropdown stays above other elements */
+        }
+
+        .dropdown-content {
+            border-radius: 1rem;
+            display: none;
+            position: absolute;
+            background: rgb(255 255 255 / 66%);
+            /* Semi-transparent background */
+            backdrop-filter: blur(10px);
+            /* Blur effect for glassmorphism */
+            min-width: 250px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            /* Higher z-index to bring dropdown above the Hero section */
+            padding: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            /* Subtle border */
+        }
+
+        /* Adjust dropdown links for better visibility */
+        .dropdown-content a {
+            color: #fff;
+            /* White text for contrast */
+            padding: 10px 16px;
+            text-decoration: none;
+            display: block;
+            font-weight: bold;
+        }
+
+        /* Hover effect */
+        .dropdown-content a:hover {
+            background-color: #e1c99c;
+            /* Soft hover effect */
+        }
+
+
+        .dropdown.open .dropdown-content {
+            display: block;
+        }
+
+        .sliding-menu .dropdown-content {
+            position: static;
+            display: none;
+            background-color: #333;
+        }
+
+        .sliding-menu .dropdown-content a {
+            color: white;
+        }
+
+        .sliding-menu .dropdown.open .dropdown-content {
+            display: block;
+        }
+
+        /* Optional: Ensure Hero section is behind dropdown */
+        .hero {
+            z-index: 1;
+            /* Lower z-index to make sure it stays behind the dropdown */
+        }
+
+        .button-86 {
+            all: unset;
+            width: 100px;
+            height: 30px;
+            font-size: 16px;
+            background: #cd0c0c;
+            position: relative;
+            color: #f0f0f0;
+            cursor: pointer;
+            z-index: 1;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            border-radius: 10px;
+        }
+
+
+        .button-86::after,
+        .button-86::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            z-index: -99999;
+            transition: all .4s;
+        }
+
+        .button-86::before {
+            transform: translate(0%, 0%);
+            width: 100%;
+            height: 100%;
+            background: #636b46;
+            border-radius: 10px;
+        }
+
+        .button-86::after {
+            transform: translate(10px, 10px);
+            width: 35px;
+            height: 35px;
+            background: #ffffff15;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border-radius: 50px;
+        }
+
+        .button-86:hover::before {
+            transform: translate(5%, 20%);
+            width: 110%;
+            height: 110%;
+        }
+
+        .button-86:hover::after {
+            border-radius: 10px;
+            transform: translate(0, 0);
+            width: 100%;
+            height: 100%;
+        }
+
+        .button-86:active::after {
+            transition: 0s;
+            transform: translate(0, 5%);
+        }
+
+        /* Pulsing effect (only applied to larger screens) */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                background-color: #cd0c0c;
+            }
+
+            50% {
+                transform: scale(1.1);
+                background-color: #b30505;
+            }
+
+            100% {
+                transform: scale(1);
+                background-color: #cd0c0c;
+            }
+        }
+
+        /* Apply pulse effect to larger screens */
+        @media (min-width: 769px) {
+            .button-86 {
+                animation: pulse 2s infinite;
+                /* Pulsing animation on larger screens */
+            }
+        }
+
+
+
+        /* Footer Styling */
+        footer {
+            background-color: #e1c99c;
+            color: #636b46;
+            padding: 30px 15%;
+            z-index: 500;
+        }
+
+        .footer-columns {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        footer .column {
+            flex: 1;
+            min-width: 250px;
+            padding: 10px;
+        }
+
+        /* Social Icons */
+        footer .column .social-icons {
+            display: flex;
+            gap: 20px;
+            justify-content: flex-start;
+            margin-top: 20px;
+        }
+
+        footer .column .social-icons a {
+            color: #636b46;
+            font-size: 40px;
+            /* Increased icon size */
+            transition: color 0.3s ease-in-out;
+        }
+
+        footer .column .social-icons a:hover {
+            color: #F3C623;
+        }
+
+        footer a {
+            color: #636b46;
+            /* Make links white */
+            text-decoration: none;
+            /* Optional: removes underline from links */
+        }
+
+        footer a:hover {
+            color: #F3C623;
+            /* Optional: hover effect to change color when mouse is over the link */
+        }
+
+        /* Relative Links Section */
+        footer .column ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+            /* Gap between the heading and the list */
+        }
+
+        footer .column ul li {
+            margin: 15px 0;
+            position: relative;
+            font-size: 18px;
+            padding-left: 20px;
+            color: #636b46;
+            transition: color 0.3s;
+        }
+
+        footer .column ul li:hover {
+            color: #F3C623;
+        }
+
+        footer .column ul li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 20%;
+            width: 10px;
+            height: 10px;
+            background-color: rgb(240 231 216);
+            border-radius: 50%;
+            opacity: 0;
+            transform: scale(0);
+            animation: bulletAnimation 0.5s forwards;
+        }
+
+        /* Animation for bullet points */
+        @keyframes bulletAnimation {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Horizontal Line Animation */
+        footer .line {
+
+            width: 100%;
+            height: 2px;
+            background-color: #636b46;
+            /* opacity: 0; */
+            transform: scaleX(0);
+            animation: lineAnimation 1s forwards;
+        }
+
+        @keyframes lineAnimation {
+            to {
+                opacity: 1;
+                transform: scaleX(1);
+            }
+        }
+
+        /* Address Section */
+        footer .column .address p {
+            margin: 10px 0;
+        }
+
+        footer .column .address .address-icon,
+        footer .column .address .phone-icon {
+            color: #F3C623;
+            margin-right: 10px;
+        }
+
+        footer .column .address a {
+            color: #F3C623;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer .column .address p+p {
+            margin-top: 10px;
+            /* Add gap between the phone number and the address */
+        }
+
+        /* Footer Bottom */
+        .footer-bottom {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px solid #636b46;
+        }
+
+        .footer-bottom .line {
+            width: 80%;
+            height: 2px;
+            margin: 0 auto 10px auto;
+            background-color: #F3C623;
+            opacity: 0;
+            transform: scaleX(0);
+            animation: lineAnimation 1s forwards;
+        }
+
+        .footer-bottom p {
+            color: #6e2a36;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        /* Ensure the footer bottom spans the full width */
+        .footer-bottom {
+            flex-basis: 100%;
+        }
+
+        /* Responsive Design */
+
+        /* For devices with max-width of 1200px (e.g., tablets, small laptops) */
+        @media (max-width: 1200px) {
+            footer {
+                padding: 30px 10%;
+            }
+
+            .footer-columns {
+                justify-content: space-evenly;
+            }
+
+            footer .column {
+                flex: 1 1 45%;
+            }
+        }
+
+        /* For devices with max-width of 768px (e.g., tablets in portrait mode) */
+        @media (max-width: 768px) {
+            footer {
+                padding: 25px 5%;
+            }
+
+            .footer-columns {
+                justify-content: center;
+            }
+
+            footer .column {
+                flex: 1 1 100%;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+            footer .column .social-icons {
+                justify-content: center;
+            }
+
+            footer .column .social-icons a {
+                margin: 0 10px;
+                font-size: 30px;
+                /* Slightly smaller icons */
+            }
+
+            footer .column ul {
+                list-style-type: none;
+                /* Remove the bullet points */
+                padding-left: 0;
+                /* Remove padding */
+                margin: 0;
+                /* Remove any default margin */
+            }
+
+            footer .column ul li {
+                font-size: 16px;
+                /* Adjust font size for smaller screens */
+                margin: 10px 0;
+                /* Adjust margin between list items */
+                text-align: left;
+            }
+
+            footer .column .address p {
+                font-size: 14px;
+            }
+        }
+
+
+        /* For devices with max-width of 480px (e.g., smartphones) */
+        @media (max-width: 480px) {
+            footer {
+                padding: 20px 5%;
+            }
+
+            footer .column .logo img {
+                height: 40px;
+            }
+
+            footer .column .social-icons a {
+                font-size: 24px;
+                /* Smaller icons */
+            }
+
+            footer .column ul li {
+                font-size: 14px;
+            }
+
+            footer .column .address p {
+                font-size: 12px;
+            }
+
+            footer .footer-bottom p {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            /* Adjust the max-width as needed */
+            footer {
+                padding-bottom: 80px;
+            }
+        }
+
+        /* WhatsApp Icon */
+        .whatsapp-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            z-index: 1000;
+            animation: bounce 2s infinite;
+            /* Apply bounce animation */
+        }
+
+        .whatsapp-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+
+        .whatsapp-icon img:hover {
+            transform: scale(1.1);
+            /* Slight zoom effect on hover */
+            transition: transform 0.3s;
+        }
+
+        /* Bounce animation */
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+                /* Start and end at the original position */
+            }
+
+            50% {
+                transform: translateY(-10px);
+                /* Move up */
+            }
+        }
+
+        /* Hide WhatsApp icon on mobile screens */
+        @media (max-width: 768px) {
+            .whatsapp-icon {
+                display: none;
+            }
+        }
+
+        /* Fixed Bottom Buttons Section */
+        /* Fixed Bottom Buttons Section */
+        .fixed-bottom-buttons {
+            display: none;
+            /* Hidden by default */
+        }
+
+        @media (max-width: 768px) {
+
+            /* Show only on screens smaller than 768px */
+            .fixed-bottom-buttons {
+                display: flex;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background-color: rgb(240 231 216);
+                justify-content: space-around;
+                align-items: center;
+                padding: 10px 0;
+                z-index: 1000;
+                box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            }
+
+            .button-call-now,
+            .button-whatsapp {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: .5rem;
+                color: #FFFFFF;
+                font-size: 24px;
+                /* Adjust the size of the icons */
+                padding: 1rem 1.75rem;
+                text-decoration: none;
+                border: 0;
+                cursor: pointer;
+                user-select: none;
+                -webkit-user-select: none;
+                touch-action: manipulation;
+                width: 45%;
+                /* Adjust width to fit within the section */
+            }
+
+            .button-call-now:hover,
+            .button-whatsapp:hover {
+                background-image: linear-gradient(-180deg, #1D95C9 0%, #17759C 100%);
+            }
+
+            .button-call-now {
+                background-color: #cda34f;
+                /* Custom color for call button */
+            }
+
+            .button-whatsapp {
+                background-color: #cda34f;
+                /* WhatsApp color */
+            }
+
+            .button-call-now:hover {
+                background-color: #636b46;
+            }
+
+            .button-whatsapp:hover {
+                background-color: #636b46;
+            }
+
+            /* Font Awesome Icons */
+            .fas,
+            .fab {
+                font-size: 24px;
+                /* Adjust icon size */
+            }
+        }
+
+
+
+
+        /* Popup Background */
+        #popupOverlay {
+
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        /* Popup Content */
+        #popupForm h2 {
+            text-align: center;
+            /* Horizontally centers the text */
+            margin: 0 0 20px 0;
+            /* Adds space below the heading */
+            color: #990000;
+        }
+
+        #popupForm {
+            background-image: linear-gradient(#e1c99cdc, rgba(240, 231, 216, 0.886)),
+                url('Screenshot%202025-01-30%20233743.png');
+            /* background: linear-gradient(135deg, #e1c99c, rgb(240 231 216)); */
+            /* Orange-yellow light gradient */
+            padding: 20px;
+            box-sizing: border-box;
+            /* Reduced padding */
+            border-radius: 10px;
+            width: 400px;
+            max-width: 100%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+            text-align: left;
+            overflow: hidden;
+            /* Ensures close button stays inside */
+            max-height: 93vh;
+            /* Maximum height 80% of the viewport height */
+            height: auto;
+            overflow-y: auto;
+            /* Enable scrolling when content overflows */
+            /* Ensures the height adjusts based on content */
+        }
+
+        /* Label Styling */
+        label {
+
+            display: block;
+            /* Ensures label is a block element */
+        }
+
+        /* Close Button */
+        #closeBtn {
+            position: absolute;
+            top: 10px;
+            /* Close button inside the box */
+            right: 10px;
+            /* Adjusted to place inside the box */
+            background-color: transparent;
+            border: none;
+            font-size: 30px;
+            /* Increased size */
+            cursor: pointer;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Pulse Animation */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Form Fields */
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 5px;
+            /* Reduced margin below fields */
+            border-radius: 5px;
+            border: 1px solid #636b46;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        /* Textarea */
+        textarea {
+            height: 80px;
+            /* Reduced height for textarea */
+        }
+
+        /* Button Styles */
+        .button-8766 {
+            all: unset;
+            width: 100px;
+            height: 40px;
+            font-size: 16px;
+            background: transparent;
+            border: none;
+            position: relative;
+            color: #f0f0f0;
+            cursor: pointer;
+            z-index: 1;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+
+        .button-8766::after,
+        .button-8766::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            z-index: -99999;
+            transition: all .4s;
+        }
+
+        .button-8766::before {
+            transform: translate(0%, 0%);
+            width: 100%;
+            height: 100%;
+            background: #636b46;
+            border-radius: 10px;
+        }
+
+        .button-8766::after {
+            transform: translate(10px, 10px);
+            width: 35px;
+            height: 35px;
+            background: #ffffff15;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border-radius: 50px;
+        }
+
+        .button-8766:hover::before {
+            transform: translate(5%, 20%);
+            width: 110%;
+            height: 110%;
+        }
+
+        .button-8766:hover::after {
+            border-radius: 10px;
+            transform: translate(0, 0);
+            width: 100%;
+            height: 100%;
+        }
+
+        .button-8766:active::after {
+            transition: 0s;
+            transform: translate(0, 5%);
+        }
+
+        /* Media Queries for responsiveness */
+        @media screen and (max-width: 768px) {
+            #popupForm {
+                width: 90%;
+                padding: 15px;
+                /* Reduced padding */
+            }
+
+            #closeBtn {
+                font-size: 35px;
+                /* Slightly bigger close button on smaller screens */
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .button-8766 {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+
+            #popupForm {
+                width: 90%;
+                padding: 15px;
+            }
+
+            @media screen and (min-width: 1024px) {
+                #popupForm {
+                    max-height: 70vh;
+                    /* Limit the height on large screens */
+                }
+            }
+
+            #closeBtn {
+                font-size: 40px;
+                /* Close button even bigger for small screens */
+            }
+        }
+
+        /* Scoped styles inside .testimonial-section */
+        .testimonial-section {
+            width: 100%;
+            /* height: 50vh; */
+            /* Optional: Set the height to fill the entire viewport */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url(/41174.jpg);
+            /* Add your background image path here */
+            background-size: cover;
+            /* Ensures the image covers the entire section without distortion */
+            background-position: center;
+            /* Centers the image within the section */
+            background-repeat: no-repeat;
+            /* Prevents the image from repeating */
+        }
+
+
+        .testimonial-container {
+            width: 70%;
+            /* Reduced width */
+            height: 200px;
+            /* Fixed height */
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            /* Padding for top, bottom, left, and right */
+            background: rgba(255, 255, 255, 0.2);
+            /* Glass effect */
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            margin: 50px auto;
+            /* Centering the container */
+        }
+
+        .testimonial {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            position: absolute;
+            transition: left 0.5s ease-in-out;
+            padding: 0 20px;
+            /* Padding for text */
+        }
+
+        .testimonial-text {
+            /* font-size: 24px; */
+            text-align: center;
+            /* Center the text */
+            flex: 1;
+            padding: 0 20px;
+            /* Padding for text */
+        }
+
+        .testimonial-author {
+            position: absolute;
+            left: 20px;
+            /* Align author text to the left */
+            font-size: 20px;
+            color: #333;
+            text-align: left;
+            /* Align author text to the left */
+            margin-top: 40px;
+            /* Add space below the testimonial text */
+            margin-left: 40px;
+        }
+
+        .scroll-button {
+            background: none;
+            color: #636b46;
+            border: none;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 60px;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        .left {
+            left: 10px;
+        }
+
+        .right {
+            right: 10px;
+        }
+
+        /* Gallery Section */
+        .gallery565 {
+            padding: 50px 5%;
+            text-align: center;
+            max-width: 100%;
+            overflow-x: hidden;
+            /* Prevents horizontal scrolling */
+        }
+
+        /* Heading */
+        .gallery565 h1 {
+            text-align: center;
+            font-size: 2.2857142858rem;
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 4rem;
+            color: #373f27;
+            font-family: Open Sans, sans-serif;
+        }
+
+        /* Horizontal Line Animation */
+        .underline {
+            width: 60px;
+            height: 3px;
+            background-color: #000;
+            margin: 20px auto;
+            transform: scaleX(0);
+            animation: lineAnimation 1s forwards;
+        }
+
+        @keyframes lineAnimation {
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        /* Gallery Grid */
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            /* 4 images per row */
+            gap: 20px;
+            justify-items: center;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        /* Gallery Item */
+        .gallery-item {
+            width: 100%;
+            max-width: 280px;
+            /* Ensures items don’t stretch */
+            height: 200px;
+            /* Adjusted for consistency */
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Image Styling */
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Hover Effects */
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Responsive Grid Adjustments */
+        @media (max-width: 1200px) {
+            .gallery-container {
+                grid-template-columns: repeat(3, 1fr);
+                /* 3 images per row */
+            }
+        }
+
+        @media (max-width: 900px) {
+            .gallery-container {
+                grid-template-columns: repeat(2, 1fr);
+                /* 2 images per row */
+            }
+        }
+
+        @media (max-width: 600px) {
+            .gallery-container {
+                grid-template-columns: 1fr;
+                /* 1 image per row */
+            }
+        }
+
+        /* Section Styles */
+
+        .responsive-section {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding: 40px 5%;
+            gap: 15px;
+            /* Reduced gap between columns */
+        }
+
+        .responsive-section .column {
+            flex: 1 1 calc(33.333% - 15px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            background-color: rgb(240 231 216);
+            padding: 20px 20px 40px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 400px;
+        }
+
+        .box h3 {
+            color: #373f27;
+            font-size: 1.5rem;
+            font-weight: 600;
+            line-height: 2rem;
+            margin-bottom: 1rem;
+            font-family: Open Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, Liberation Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+        }
+
+
+
+        /* Ensure image fits the box */
+        .box img {
+            width: 100%;
+            /* Make image fill the width of the box */
+            height: 200px;
+            /* Fixed height */
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .box hr {
+            border: 0;
+            border-top: 1px solid #ccc;
+            margin: 15px 0;
+        }
+
+        /* .box h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            min-height: 50px;
+        } */
+
+        .box p {
+            font-size: 1.2857142858rem;
+            font-weight: 400;
+            line-height: 1.3;
+            color: #373f27;
+            font-family: Open Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, Liberation Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .button-91 {
+            color: #fff;
+            padding: 15px 25px;
+            /* Increased padding for height */
+            font-size: 14px;
+            /* Font size */
+            background-color: #cda34f;
+            background-image: radial-gradient(93% 87% at 87% 89%, rgba(0, 0, 0, 0.23) 0%, transparent 86.18%), radial-gradient(66% 66% at 26% 20%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 100%);
+            box-shadow: inset -3px -3px 9px rgba(255, 255, 255, 0.25), inset 0px 3px 9px rgba(255, 255, 255, 0.3), inset 0px 1px 1px rgba(255, 255, 255, 0.6), inset 0px -8px 36px rgba(0, 0, 0, 0.3), inset 0px 1px 5px rgba(255, 255, 255, 0.6), 2px 19px 31px rgba(0, 0, 0, 0.2);
+            border-radius: 14px;
+            font-weight: bold;
+            border: 0;
+            user-select: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            max-width: 180px;
+            /* Maximum width of the button */
+            width: 100%;
+            /* Make button width responsive */
+            text-align: center;
+            /* Center the text horizontally */
+
+            /* Flexbox to center content vertically */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .button-91:hover {
+            background-color: #75973a;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .responsive-section {
+                padding: 40px 5%;
+            }
+
+            .column {
+                flex: 1 1 100%;
+            }
+
+            .box {
+                max-width: 100%;
+                min-height: 350px;
+                padding: 20px 20px 40px 20px;
+            }
+
+            /* Adjust fixed image dimensions for small screens */
+            .box img {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+            }
+        }
+
+        /* Add gap between rows */
+        .responsive-section+.responsive-section {
+            margin-top: 40px;
+        }
+
+        /* Styles for Types of Pooja Heading */
+        .types-pooja-heading {
+
+            text-align: center;
+            /* margin-bottom: 40px; */
+            /* Space between heading and responsive section */
+        }
+
+        .types-pooja-heading p {
+            font-size: 1.2857142858rem;
+            font-weight: 400;
+            line-height: 1.3;
+            color: #373f27;
+            font-family: Open Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, Liberation Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+            margin-bottom: 1px;
+            flex-grow: 1;
+        }
+
+        .types-pooja-heading h2 {
+            color: #373f27;
+            font-size: 2.2875rem;
+            font-weight: 600;
+            line-height: 2rem;
+            margin-bottom: 1rem;
+            font-family: Open Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, Liberation Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+        }
+
+
+        /* Contact Section */
+        .contact-section {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.856), rgba(255, 255, 255, 0.5)), url(/Screenshot\ 2025-01-30\ 233743.png);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px 20px;
+            padding: 5%;
+            /* Reduced padding for desktop */
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-section .contact-column {
+            padding: 20px;
+        }
+
+        .contact-section .contact-column h4 {
+            color: #373f27;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-family: Open Sans, sans-serif;
+        }
+
+        .contact-section .contact-column p {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            line-height: 1.75rem;
+            color: #1d2833;
+            font-family: Open Sans, sans-serif;
+        }
+
+        /* Icons with Shimmer Effect */
+        .contact-section .icon {
+            font-size: 55px;
+            margin-bottom: 20px;
+            color: transparent;
+            background: linear-gradient(90deg, #F3C623, #EB8317, #F4F6FF);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            animation: shimmer 5s linear infinite;
+        }
+
+        /* Shimmer Animation */
+        @keyframes shimmer {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        /* Links */
+        .contact-section a {
+            text-decoration: none;
+            color: #555;
+        }
+
+        .contact-section a:hover {
+            color: #000;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 1024px) {
+            .contact-section {
+                padding: 4%;
+                /* Adjusted padding for medium screen */
+            }
+
+            .contact-section .contact-column h4 {
+                font-size: 1.8rem;
+            }
+
+            .contact-section .contact-column p {
+                font-size: 1.1rem;
+            }
+
+            .contact-section .icon {
+                font-size: 50px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .contact-section {
+                padding: 5%;
+                /* Keep padding smaller for mobile */
+            }
+
+            .contact-section .contact-column h4 {
+                font-size: 1.5rem;
+            }
+
+            .contact-section .contact-column p {
+                font-size: 1rem;
+            }
+
+            .contact-section .icon {
+                font-size: 45px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contact-section {
+                padding: 4%;
+                /* Even smaller padding for small screens */
+            }
+
+            .contact-section .contact-column h4 {
+                font-size: 1.3rem;
+            }
+
+            .contact-section .contact-column p {
+                font-size: 0.95rem;
+            }
+
+            .contact-section .icon {
+                font-size: 40px;
+            }
+        }
+
+        /* Section 2: Scroll Animation and Styling */
+        #section2 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* Centers content */
+            justify-content: center;
+            max-width: 900px;
+            /* Slightly wider for better spacing */
+            margin: 0 auto;
+            /* Reduced margin */
+            text-align: center;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding: 50px 5%;
+            /* Adjusted left & right padding */
+        }
+
+        /* Heading Styling */
+        #section2 h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #373f27;
+            font-family: "Open Sans", sans-serif;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        /* Paragraph Styling */
+        #section2 p {
+            text-align: left;
+            /* Ensures text is left-aligned */
+            font-size: 1.2rem;
+            line-height: 1.75rem;
+            color: #373f27;
+            font-family: "Open Sans", sans-serif;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        /* Scroll Animation */
+        #section2 h2.scroll-animate,
+        #section2 p.scroll-animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            #section2 {
+                padding: 40px 5%;
+            }
+
+            #section2 h2 {
+                font-size: 1.8rem;
+            }
+
+            #section2 p {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #section2 {
+                padding: 40px 5%;
+            }
+
+            #section2 h2 {
+                font-size: 1.6rem;
+            }
+
+            #section2 p {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #section2 {
+                padding: 30px 5%;
+            }
+
+            #section2 h2 {
+                font-size: 1.4rem;
+            }
+
+            #section2 p {
+                font-size: 0.95rem;
+            }
+        }
+
+
+
+        /* Hero Section Styles */
+        .hero-section {
+            position: relative;
+            width: 100%;
+            min-height: 85vh;
+            /* Use a minimum height of 60vh (or whatever height you need) */
+            overflow: hidden;
+            /* Prevents content from overflowing */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding-top: 40px;
+            /* Padding at the top */
+            box-sizing: border-box;
+            /* Ensure padding doesn't cause overflow */
+        }
+
+        /* Typography Adjustments */
+        .hero-section .content h1,
+        .hero-section .content p {
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7), -1px -1px 2px rgba(255, 255, 255, 0.5);
+            text-align: center;
+        }
+
+        /* Hero background image animation */
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            animation: changeBackground 20s infinite;
+            z-index: 1;
+        }
+
+        /* Keyframes to change the background image every 5 seconds */
+        @keyframes changeBackground {
+            0% {
+                background-image: url('1736422675191.jpg');
+            }
+
+            25% {
+                background-image: url('1736422675151.jpg');
+            }
+
+            50% {
+                background-image: url('1736422675220.jpg');
+            }
+
+            75% {
+                background-image: url('1736422675210.jpg');
+            }
+
+            100% {
+                background-image: url('1736422675161.jpg');
+            }
+        }
+
+        /* Overlay styles */
+        .hero-section .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Semi-transparent black for contrast */
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        /* Content inside hero section */
+        .hero-section .content {
+            text-align: center;
+            color: #fff;
+            z-index: 3;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        /* Hero Text Styling */
+        .hero-section .content h1 {
+            font-size: 3.1rem;
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            animation: fadeIn 2s ease-out forwards;
+            animation-delay: 0.5s;
+            padding-top: 40px;
+            /* Added padding to the top */
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7), -1px -1px 2px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Hero Text Paragraph Styling */
+        .hero-section .content p {
+            font-size: 1.5rem;
+            line-height: 1.8;
+            opacity: 0;
+            animation: fadeIn 2s ease-out forwards;
+            animation-delay: 1s;
+            margin-top: 0;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7), -1px -1px 2px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Button Style */
+        .hero-section .content .button-86 {
+            all: unset;
+            width: 150px;
+            height: 40px;
+            font-size: 16px;
+            background: transparent;
+            border: none;
+            position: relative;
+            color: #f0f0f0;
+            cursor: pointer;
+            z-index: 1;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .button-86::before {
+            transform: translate(0%, 0%);
+            width: 100%;
+            height: 100%;
+            background: #636b46;
+            border-radius: 10px;
+        }
+
+        .button-86::after {
+            transform: translate(10px, 10px);
+            width: 35px;
+            height: 35px;
+            background: #ffffff15;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border-radius: 50px;
+        }
+
+        .button-86:hover::before {
+            transform: translate(5%, 20%);
+            width: 110%;
+            height: 110%;
+        }
+
+        .button-86:hover::after {
+            border-radius: 10px;
+            transform: translate(0, 0);
+            width: 100%;
+            height: 100%;
+        }
+
+        .button-86:active::after {
+            transition: 0s;
+            transform: translate(0, 5%);
+        }
+
+        /* FadeIn animation for text */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Four Columns inside Hero Section */
+        .hero-section .columns {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding-top: 20px;
+            z-index: 3;
+        }
+
+        .hero-section .column {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10px;
+            margin-bottom: 5rem;
+        }
+
+        .hero-section .column .icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .hero-section .column .text {
+            font-size: 1rem;
+            color: #ffffff;
+            margin-bottom: 1px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .hero-section {
+                height: 50vh;
+            }
+
+            /* Hero section heading */
+            .hero-section .content h1 {
+                font-size: 2rem;
+                padding-top: 20px;
+                /* Adjust padding for small screens */
+            }
+
+            .hero-section .content p {
+                font-size: 1rem;
+            }
+
+            .button-86 {
+                width: 150px;
+                height: 40px;
+                font-size: 18px;
+            }
+
+            /* Hide columns in hero section */
+            .hero-section .columns {
+                display: none;
+            }
+
+
+        }
+
+        /* Default: Hide the columns section on larger screens */
+        .columns-section {
+            display: none;
+        }
+
+        /* Show columns section only on small screens (mobile) */
+        @media (max-width: 768px) {
+            .columns-section {
+                display: block;
+                padding: 20px;
+                /* Add padding around the section */
+                text-align: center;
+                /* Center the content */
+
+            }
+
+            .columns-section .columns {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                /* Adds gap between columns */
+                align-items: center;
+                /* Centers the columns horizontally */
+            }
+
+            .columns-section .column {
+                width: 100%;
+                max-width: 400px;
+                /* Limit the width of columns */
+                margin-bottom: 1rem;
+                /* Add some space below each column */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-section .content h1 {
+                font-size: 1.5rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .hero-section .content p {
+                font-size: 1rem;
+            }
+
+            .button-86 {
+                font-size: 16px;
+                padding: 8px 16px;
+            }
+        }
+
+
+        .chapter567 {
+            text-align: center;
+            padding-top: 40px;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-bottom: 1px;
+
+        }
+
+        .chapter567-header h2 {
+            color: #373f27;
+            font-size: 2.2875rem;
+            font-weight: 600;
+            line-height: 2rem;
+            margin-bottom: 1rem;
+            font-family: Open Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, Liberation Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+        }
+
+        .chapter567-header p {
+
+            font-size: 1.2857142858rem;
+            font-weight: 400;
+            line-height: 1.3;
+            color: #373f27;
+            font-family: Open Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, Liberation Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+            margin-bottom: 1px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .chapter567-header h2 {
+                font-size: 2.28rem;
+                /* Smaller heading on mobile */
+            }
+
+            .chapter567-header p {
+                font-size: 1.28rem;
+                /* Smaller subheading on mobile */
+            }
+        }
+
+        .custom-hr {
+            width: 100%;
+            height: 20px;
+            margin-top: 2rem;
+            /* Adjust height as needed */
+            background: url('separator-1.png') repeat-x;
+            border: none;
+        }
+
+
+        /* Section 143: Responsive Styling */
+        #section143 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-width: 900px;
+            /* Ensures content does not stretch too wide */
+            margin: 0 auto;
+            /* Centers the section */
+            padding: 50px 5%;
+            /* Keeps left & right padding fixed at 5% */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Heading Styling */
+        #section143 h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #373f27;
+            font-family: "Open Sans", sans-serif;
+            text-align: center;
+        }
+
+        /* Paragraph Styling */
+        #section143 p {
+            text-align: left;
+            font-size: 1.2rem;
+            line-height: 1.75rem;
+            color: #373f27;
+            font-family: "Open Sans", sans-serif;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            #section143 {
+                padding: 40px 5%;
+            }
+
+            #section143 h2 {
+                font-size: 1.8rem;
+            }
+
+            #section143 p {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #section143 {
+                padding: 40px 5%;
+            }
+
+            #section143 h2 {
+                font-size: 1.6rem;
+            }
+
+            #section143 p {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #section143 {
+                padding: 30px 5%;
+            }
+
+            #section143 h2 {
+                font-size: 1.4rem;
+            }
+
+            #section143 p {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="/Assets/images.jpg" alt="Logo" height="50">
+        </div>
+        <nav class="nav-links">
+            <ul>
+                <li><a href="Index.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="#">Pooja</a>
+                    <div class="dropdown-content">
+                        <a href="Pooja2.html">Narayanbali Pooja
+                        </a>
+                        <a href="Pooja.html">Nagabali Pooja</a>
+                        <!-- <a href="#">Nagabali Pooja</a> -->
+                        <a href="Pooja1.html">PitruDosha Nivarana
+                        </a>
+                        <a href="Pooja3.html">Thripindi Shraddha
+                        </a>
+                    </div>
+                </li>
+                <li><a href="Contact.html">Contact Us</a></li>
+            </ul>
+        </nav>
+        <div class="call-now">
+            <a href="tel:+918310214624">
+                <button class="button-86" role="button">Call Now</button>
+            </a>
+        </div>
+        <div class="hamburger-menu" id="hamburgerMenu" onclick="toggleMenu()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </header>
+
+    <div class="sliding-menu" id="slidingMenu">
+        <ul>
+            <li><a href="Index.html">Home</a></li>
+            <li class="dropdown">
+                <a href="#">Pooja</a>
+                <div class="dropdown-content">
+                    <a href="Pooja2.html">Narayanbali Pooja
+                    </a>
+                    <a href="Pooja.html">Nagabali Pooja</a>
+                    <!-- <a href="#">Nagabali Pooja</a> -->
+                    <a href="Pooja1.html">PitruDosha Nivarana
+                    </a>
+                    <a href="Pooja3.html">Thripindi Shraddha
+                    </a>
+                </div>
+            </li>
+            <li><a href="Contact.html">Contact Us</a></li>
+            <li><a href="tel:+918310214624"><button class="button-86">Call Now</button></a></li>
+        </ul>
+    </div>
+    <div id="popupOverlay">
+        <div id="popupForm">
+            <button id="closeBtn">&times;</button>
+            <h2>Pooja Booking Form</h2>
+            <label>Name:</label><br>
+            <input type="text" name="name" id="name" required><br>
+            <label>Contact Number:</label><br>
+            <input type="text" name="contact" id="contact" required><br>
+            <label>Type of Pooja:</label><br>
+            <select name="pooja" id="poojaType">
+                <option value="Narayanbali">Narayanbali</option>
+                <option value="Nagabali">Nagabali</option>
+                <option value="PitruDosha Nivarana">PitruDosha Nivarana</option>
+            </select><br>
+            <label>Preferred Date:</label><br>
+            <input type="date" name="date" id="date" required><br>
+            <label>Additional Details (Optional):</label><br>
+            <textarea name="details" id="details"></textarea><br>
+            <button type="button" class="button-8766" onclick="sendToWhatsApp()">Submit</button>
+        </div>
+    </div>
+
+
+
+
+    <section class="hero-section">
+        <div class="overlay">
+            <div class="content">
+                <h1>Honor Your Ancestors and Attain Peace Through Sacred Poojas.</h1><br><br>
+                <p>Specialized rituals to overcome PitruDosha and bring harmony to your family.</p>
+                <button class="button-86" onclick="window.location.href='contact.html'">Book Now</button>
+            </div>
+
+            <!-- Four Columns Section -->
+            <div class="columns">
+                <div class="column">
+                    <div class="icon"><i class="fa fa-check-circle"></i></div>
+                    <div class="text">Online Pooja Booking</div>
+                </div>
+                <div class="column">
+                    <div class="icon"><i class="fa fa-user-circle"></i></div>
+                    <div class="text">Accommodation for Devotees
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="icon"><i class="fas fa-praying-hands"></i></div>
+                    <div class="text">Online Pooja Participation</div>
+                </div>
+                <div class="column">
+                    <div class="icon"><i class="fas fa-gem"></i></div>
+                    <div class="text">Esteemed priests
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Section for Columns on Small Screens -->
+    <section class="columns-section">
+        <div class="columns">
+            <div class="column">
+                <div class="icon"><i class="fas fa-heart"></i></div>
+                <div class="text">Online Pooja Booking</div>
+            </div>
+            <div class="column">
+                <div class="icon"><i class="fas fa-balance-scale"></i></div>
+                <div class="text">Accommodation for Devotees</div>
+            </div>
+            <div class="column">
+                <div class="icon"><i class="fas fa-praying-hands"></i></div>
+                <div class="text">Online Pooja Participation</div>
+            </div>
+            <div class="column">
+                <div class="icon"><i class="fas fa-gem"></i></div>
+                <div class="text">Esteemed priests</div>
+            </div>
+        </div>
+        <hr class="custom-hr">
+    </section>
+
+    <section class="chapter567">
+        <div class="chapter567-header">
+            <h2>Why Gokarna?</h2><br><br>
+            <p style="text-align: justify;"> Gokarna, often referred to as the 'Kashi of the South,' holds immense
+                spiritual significance for
+                ancestral
+                rituals such as Narayanbali, Nagabali, and PitruDosha Nivarana. Home to the sacred Mahabaleshwar Temple
+                and
+                the divine Atma-Linga of Lord Shiva, this holy town is revered as a powerful center for resolving
+                ancestral
+                karmas and liberating departed souls. Ancient scriptures like the Skanda Purana emphasize the
+                transformative
+                spiritual benefits of performing these Poojas in Gokarna, where the divine energy amplifies the efficacy
+                of
+                rituals. By conducting these sacred ceremonies here, devotees not only honor their forefathers but also
+                seek
+                blessings for peace, prosperity, and harmony in their lives, making Gokarna a uniquely blessed
+                destination
+                for ancestral worship.</p><br><br><br><br>
+        </div>
+    </section>
+
+    <hr class="custom-hr">
+
+    <!-- Wrapping everything in the testimonial-section -->
+
+    <!-- First Row -->
+    <section class="types-pooja-heading">
+        <br>
+        <br>
+        <h2>Types of Pooja</h2>
+        <br>
+        <p>We specialise in individual and personalised pujas and<br><br>
+            rituals like pujas for spiritual progress, good health, and success in profession.</p>
+        <br>
+        <br>
+    </section>
+
+    <section class="responsive-section">
+
+        <div class="column">
+
+            <div class="box">
+
+                <img src="1736422675161.jpg" alt="Image 1" class="img">
+                <hr>
+                <h3>Nagabali Pooja</h3>
+                <p>Release the souls of departed ancestors to attain peace...</p>
+                <button class="button-91" onclick="window.location.href='Pooja.html'">Read More</button>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="box">
+
+                <img src="1736422675442.jpg" alt="Image 2" class="img">
+                <hr>
+                <h3>PitruDosha Nivarana</h3>
+                <p>Remove curses and obstacles related to serpent-related...</p>
+                <button class="button-91" onclick="window.location.href='Pooja1.html'">Read More</button>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="box">
+
+                <img src="1736422675201.jpg" alt="Image 3" class="img">
+                <hr>
+                <h3>Narayanabali Pooja</h3>
+                <p>Alleviate ancestral doshas for familial prosperity and ...</p>
+                <button class="button-91" onclick="window.location.href='Pooja2.html'">Read More</button>
+            </div>
+        </div>
+    </section>
+    <hr class="custom-hr">
+    <section class="gallery565">
+        <h1>Gallery</h1>
+        <!-- <div class="underline"></div> Horizontal line -->
+        <div class="gallery-container">
+            <div class="gallery-item"><img src="1736422675161.jpg" alt="Image 1"></div>
+            <div class="gallery-item"><img src="1736422675201.jpg" alt="Image 2"></div>
+            <div class="gallery-item"><img src="1736422675442.jpg" alt="Image 3"></div>
+            <div class="gallery-item"><img src="1736422675191.jpg" alt="Image 4"></div>
+            <div class="gallery-item"><img src="1736422675151.jpg" alt="Image 1"></div>
+            <div class="gallery-item"><img src="1736422675248 (1).jpg" alt="Image 2"></div>
+            <div class="gallery-item"><img src="1736422675210.jpg" alt="Image 3"></div>
+            <div class="gallery-item"><img src="1736422675220.jpg" alt="Image 4"></div>
+        </div>
+    </section>
+    <hr class="custom-hr">
+    <section class="chapter567">
+        <div class="chapter567-header">
+            <h2>Testimonial</h2><br>
+            <p>Empowering healthcare professionals through cutting-edge technology and training solutions</p>
+        </div>
+    </section>
+
+    <section class="testimonial-section">
+        <div class="testimonial-container">
+            <div class="testimonial" style="left: 0%;">
+                <p class="testimonial-text">Hello, this is Kavy</p>
+                <p class="testimonial-author">- Kavya</p>
+            </div>
+            <div class="testimonial" style="left: 100%;">
+                <p class="testimonial-text">Hello, this is Kavy</p>
+                <p class="testimonial-author">- Kavya</p>
+            </div>
+            <!-- Add more testimonials as needed -->
+            <button class="scroll-button left" onclick="scrollTestimonial(-1)">&#10094;</button>
+            <button class="scroll-button right" onclick="scrollTestimonial(1)">&#10095;</button>
+        </div>
+    </section>
+
+    <hr class="custom-hr">
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-columns">
+            <!-- First Column -->
+            <div class="column">
+                <div class="logo">
+                    <img src="/Assets/images.jpg
+                    " alt="Logo">
+                </div>
+                <div class="social-icons">
+                    <a href="https://facebook.com" class="fa-brands fa-facebook"></a>
+                    <a href="https://twitter.com" class="fa-brands fa-twitter"></a>
+                    <a href="https://instagram.com" class="fa-brands fa-instagram"></a>
+                </div>
+            </div>
+
+            <!-- Second Column -->
+            <div class="column">
+                <p>Relative Links</p>
+                <div class="line"></div> <!-- Horizontal line -->
+                <ul>
+                    <li><a href="Index.html">Home</a></li>
+                    <li><a href="Pooja.html">Poojas</a></li>
+                    <li><a href="Contact.html">Contact</a></li>
+                </ul>
+                <!-- <div class="line"></div> Horizontal line below the links -->
+            </div>
+
+            <!-- Third Column -->
+            <div class="column">
+                <p>Address</p>
+                <div class="line"></div> <!-- Horizontal line -->
+                <div class="address">
+                    <p><span class="address-icon">🏠</span>Kudle Beach Road, Car St, Dandebagh, Gokarna, Karnataka
+                        581326</p>
+                    <p><span class="phone-icon">📞</span><a href="tel:+918310214624"
+                            style="color: yellow;">8310214624</a></p>
+                </div>
+                <!-- <div class="line"></div> Horizontal line below address -->
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <!-- <div class="line"></div> Horizontal line above the copyright -->
+            <p>&copy; 2025 YourCompanyName. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+
+    <!-- WhatsApp Icon -->
+    <a href="https://wa.me/8310214624" target="_blank" class="whatsapp-icon" title="Chat with us on WhatsApp">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
+    </a>
+
+
+    <!-- Fixed Bottom Buttons -->
+    <!-- Fixed Bottom Buttons -->
+    <section class="fixed-bottom-buttons">
+        <button class="button-call-now" onclick="location.href='tel:+918310214624'">
+            <i class="fas fa-phone-alt"></i> <!-- Font Awesome phone icon -->
+        </button>
+        <button class="button-whatsapp" onclick="location.href='https://wa.me/8310214624'">
+            <i class="fab fa-whatsapp"></i> <!-- Font Awesome WhatsApp icon -->
+        </button>
+    </section>
+
+
+
+
+    <!-- FontAwesome for Social Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script>
+        // Function to toggle the menu
+        function toggleMenu() {
+            const slidingMenu = document.getElementById('slidingMenu');
+            const hamburgerMenu = document.getElementById('hamburgerMenu');
+            slidingMenu.classList.toggle('open');
+            hamburgerMenu.classList.toggle('open');
+        }
+
+        // Function to toggle dropdown within the sliding menu
+        function toggleDropdown(event) {
+            const dropdown = event.target.closest('.dropdown');
+            if (dropdown) {
+                dropdown.classList.toggle('open');
+            }
+        }
+
+        // Close the menu if the user clicks outside the sliding menu or hamburger menu
+        document.addEventListener('click', function (event) {
+            const slidingMenu = document.getElementById('slidingMenu');
+            const hamburgerMenu = document.getElementById('hamburgerMenu');
+
+            // Close the sliding menu if clicked outside
+            if (!slidingMenu.contains(event.target) && !hamburgerMenu.contains(event.target)) {
+                slidingMenu.classList.remove('open');
+                hamburgerMenu.classList.remove('open');
+            }
+
+            // Ensure dropdown works properly within the sliding menu
+            if (!event.target.closest('.dropdown')) {
+                document.querySelectorAll('.dropdown.open').forEach(dropdown => {
+                    dropdown.classList.remove('open');
+                });
+            }
+        });
+
+        // Event listener to open the dropdown on click
+        document.querySelectorAll('.dropdown').forEach(dropdown => {
+            dropdown.addEventListener('click', toggleDropdown);
+        });
+
+    </script>
+
+
+
+
+
+    <!-- popup -->
+    <!-- popup -->
+    <script>
+        // Show the popup when "Book Now" button is clicked
+        function showPopup() {
+            document.getElementById('popupOverlay').style.display = 'flex';
+        }
+        // Close Button Functionality
+        document.getElementById('closeBtn').onclick = function () {
+            document.getElementById('popupOverlay').style.display = 'none';
+        };
+
+        // WhatsApp Integration
+        function sendToWhatsApp() {
+            const name = document.getElementById('name').value;
+            const contact = document.getElementById('contact').value;
+            const poojaType = document.getElementById('poojaType').value;
+            const date = document.getElementById('date').value;
+            const details = document.getElementById('details').value;
+
+            if (name && contact && poojaType && date) {
+                const message = `Name: ${name}%0AContact: ${contact}%0APooja Type: ${poojaType}%0APreferred Date: ${date}%0ADetails: ${details}`;
+                window.open(`https://wa.me/918310214624?text=${message}`, '_blank');
+            } else {
+                alert('Please fill all required fields.');
+            }
+        }
+
+    </script>
+    <!-- 
+scroll animation -->
+    <script>
+        document.addEventListener("scroll", () => {
+            const section2 = document.querySelector("#section2");
+            const { top } = section2.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+
+            if (top < windowHeight - 50) {
+                section2.querySelectorAll("h2, p").forEach((el) => {
+                    el.classList.add("scroll-animate");
+                });
+            }
+
+            // Show "Now" button when scrolling
+            const nowButton = document.querySelector('.now-button');
+            if (window.scrollY > 100) { // Adjust scroll threshold if needed
+                nowButton.style.display = 'flex';
+            } else {
+                nowButton.style.display = 'none';
+            }
+        });
+
+    </script>
+    <!-- testimonial -->
+    <script>
+        let currentIndex = 0;
+
+        const testimonials = document.querySelectorAll('.testimonial');
+        const totalTestimonials = testimonials.length;
+
+        function scrollTestimonial(direction) {
+            currentIndex = (currentIndex + direction + totalTestimonials) % totalTestimonials;
+            updateTestimonialPosition();
+        }
+
+        function updateTestimonialPosition() {
+            testimonials.forEach((testimonial, index) => {
+                const offset = (index - currentIndex) * 100;
+                testimonial.style.left = `${offset}%`;
+            });
+        }
+
+        // Auto scroll every 6 seconds
+        setInterval(() => {
+            scrollTestimonial(1);
+        }, 6000);
+    </script>
+    <!-- disbling th right click -->
+    <!-- <script>
+    document.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+    });
+</script> -->
+
+</body>
+
+</html>
