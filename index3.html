@@ -32,7 +32,7 @@
             background-image: linear-gradient(rgba(255, 255, 255, 0.856), rgba(255, 255, 255, 0.838)),
                 url('Screenshot%202025-01-30%20233743.png');
             background-size: auto;
-            color: #636b46;
+            color: white;
             /* Ensures repeating works */
             background-repeat: repeat;
             /* Repeats the image */
@@ -56,9 +56,46 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 10%;
-            background-color: #e1c99c;
+            background: linear-gradient(to bottom, #000000e0, #333333e0);
             color: #10375C;
             position: relative;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100px;
+            /* Increased size */
+            height: 100px;
+            background-color: #F5E6C4;
+            /* Cream background */
+            border-radius: 50%;
+            overflow: hidden;
+            /* Ensures image does not overflow */
+        }
+
+        .logo img {
+            width: 90%;
+            /* Slightly reduced to fit inside */
+            height: 90%;
+            object-fit: contain;
+            /* Ensures the whole image sits inside */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .logo {
+                width: 70px;
+                height: 70px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                width: 60px;
+                height: 60px;
+            }
         }
 
         /* Navigation Links */
@@ -72,7 +109,7 @@
         }
 
         .nav-links ul li a {
-            color: #10375C;
+            color: white;
             text-decoration: none;
             font-size: 18px;
         }
@@ -325,9 +362,9 @@
         }
 
         .button-86::after {
-            transform: translate(10px, 10px);
+            /* transform: translate(10px, 10px);
             width: 35px;
-            height: 35px;
+            height: 35px; */
             background: #ffffff15;
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
@@ -986,7 +1023,7 @@
             }
         }
 
-       
+
 
         /* Gallery Section */
         .gallery565 {
@@ -1473,7 +1510,7 @@
 
         .hero {
             width: 100%;
-            height: 60vh;
+            height: 70vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1527,7 +1564,7 @@
         .animated-heading {
             color: white;
             font-size: 24px;
-            font-weight: bold;
+            /* font-weight: bold; */
             opacity: 0;
             animation: fadeIn 2s ease-in forwards;
         }
@@ -1574,16 +1611,38 @@
         }
 
         @media (max-width: 768px) {
-            .hero-container {
-                flex-direction: column;
-                text-align: center;
-            }
+    .hero {
+        height: auto; /* Allow the section to expand */
+        min-height: 100vh; /* Ensure enough space */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
 
-            .right-column {
-                height: 40vh;
-            }
-        }
+    .hero-container {
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        align-items: center;
+    }
 
+    .left-column,
+    .right-column {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .right-column {
+        height: auto; /* Let content define height */
+        min-height: 40vh; /* Ensure it stays inside */
+        overflow: hidden;
+    }
+
+    .slider-container img {
+        max-width: 80%; /* Prevents overflow */
+        max-height: 200px;
+    }
+}
         .chapter567 {
             text-align: center;
             padding-top: 40px;
@@ -1712,67 +1771,120 @@
                 font-size: 0.95rem;
             }
         }
+
         .testimonial-container {
-            width: 60%;
-            margin: auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-        .testimonial {
-            display: flex;
-            align-items: center;
-            width: 100%;
-            padding: 8%;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            background: #f9f9f9;
-        }
-        .testimonial img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin-right: 20px;
-        }
-        .testimonial-content {
-            flex: 1;
-        }
-        .testimonial-text {
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-        .testimonial-name {
-            font-weight: bold;
-            text-align: right;
-        }
-        .arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #BD7E30;
-            border: none;
-            background: none;
-            cursor: pointer;
-            font-size: 70px;
-        }
-        .arrow-left {
-            left: 10px;
-        }
-        .arrow-right {
-            right: 10px;
-        }
-        @media (max-width: 768px) {
-            .testimonial-container {
-                width: 90%;
-            }
-            .testimonial {
-                padding: 12%;
-            }
-        }
+    width: 60%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonial {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 200px; /* Ensuring consistent height */
+    padding: 8%;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: #f9f9f9;
+    flex-wrap: wrap; /* Allows wrapping for smaller screens */
+}
+
+.testimonial img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 20px;
+    flex-shrink: 0; /* Prevents image from shrinking */
+}
+
+.testimonial-content {
+    flex: 1;
+    min-width: 200px;
+}
+
+.testimonial-text {
+    color: #BD7E30;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.testimonial-name {
+    color: #BD7E30;
+    font-weight: bold;
+    text-align: right;
+}
+
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #BD7E30;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 70px;
+}
+
+.arrow-left {
+    left: 10px;
+}
+
+.arrow-right {
+    right: 10px;
+}
+
+@media (max-width: 1024px) {
+    .testimonial-container {
+        width: 80%;
+    }
+
+    .testimonial {
+        padding: 10%;
+        min-height: 220px; /* Adjusting height for larger tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    .testimonial-container {
+        width: 90%;
+    }
+
+    .testimonial {
+        flex-direction: column;
+        text-align: center;
+        padding: 10%;
+        min-height: auto; /* Allowing height to adjust naturally */
+    }
+
+    .testimonial img {
+        margin-bottom: 15px;
+        margin-right: 0;
+    }
+
+    .testimonial-name {
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .testimonial {
+        padding: 12%;
+        min-height: auto;
+    }
+
+    .arrow {
+        font-size: 50px; /* Smaller arrows for mobile */
+    }
+}
+
+
         #section-7865 {
-            padding:2% 5%;
+            padding: 2% 5%;
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
@@ -1783,11 +1895,12 @@
         #section-7865 .column {
             flex: 1;
             min-width: 200px;
-           background: white; 
+            background: #BD7E30;
             padding: 15px;
             display: flex;
             align-items: center;
-            gap: 10px; /* Space between icon and text */
+            gap: 10px;
+            /* Space between icon and text */
             border-radius: 10px;
             box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease-in-out;
@@ -1803,6 +1916,7 @@
         }
 
         #section-7865 .text {
+            text-align: center;
             font-size: 16px;
             font-weight: bold;
             flex: 1;
@@ -1813,6 +1927,7 @@
                 flex-direction: column;
                 align-items: center;
             }
+
             #section-7865 .column {
                 width: 90%;
             }
@@ -1824,8 +1939,11 @@
     <!-- Header -->
     <header>
         <div class="logo">
-            <img src="WhatsApp Image 2025-02-07 at 9.29.22 PM.jpeg" alt="Logo" height="50">
+            <a href="index.html">
+                <img src="/WhatsApp Image 2025-02-07 at 9.34.50 PM.jpeg" alt="Logo">
+            </a>
         </div>
+
         <nav class="nav-links">
             <ul>
                 <li><a href="Index.html">Home</a></li>
@@ -1902,6 +2020,7 @@
 
 
     <section class="hero">
+        
         <div class="hero-container">
             <div class="left-column">
                 <div class="image-container">
@@ -2052,7 +2171,7 @@
             <!-- First Column -->
             <div class="column">
                 <div class="logo">
-                    <img src="/Assets/images.jpg
+                    <img src="/WhatsApp Image 2025-02-07 at 9.34.50 PM.jpeg
                     " alt="Logo">
                 </div>
                 <div class="social-icons">
@@ -2110,33 +2229,43 @@
         </button>
     </section>
 
-<!-- testimonial  -->
-<script>
-    const testimonials = [
-        { img: "1736422675161.jpg", text: "This is an amazing service! Highly recommend it.", name: "- John Doe" },
-        { img: "1736422675161.jpg", text: "Fantastic experience, will use again.", name: "- Jane Smith" },
-        { img: "1736422675161.jpg", text: "Truly outstanding service!", name: "- Michael Brown" }
-    ];
-    
-    let currentIndex = 0;
-    function updateTestimonial() {
-        document.getElementById("testimonial-img").src = testimonials[currentIndex].img;
-        document.getElementById("testimonial-text").innerText = testimonials[currentIndex].text;
-        document.getElementById("testimonial-name").innerText = testimonials[currentIndex].name;
-    }
-    
-    function nextTestimonial() {
-        currentIndex = (currentIndex + 1) % testimonials.length;
-        updateTestimonial();
-    }
-    
-    function prevTestimonial() {
-        currentIndex = (currentIndex - 1 + testimonials.length) % testimonials.length;
-        updateTestimonial();
-    }
-    
-    setInterval(nextTestimonial, 3000);
-</script>
+    <!-- testimonial  -->
+    <script>
+        const testimonials = [
+            { img: "1736422675161.jpg", text: "A truly divine experience! The pooja was performed with great devotion, and I felt immense peace afterward. 🙏✨ ", name: "- Rajesh Iyer, Chennai" },
+            { img: "1736422675161.jpg", text: "After the Narayana Bali pooja, we noticed a positive shift in our family’s well-being. Grateful for the guidance! 🌿🕉️ " , name: "- Ananya Sharma, Bangalore" },
+            { img: "1736422675161.jpg", text: "The rituals were conducted with such authenticity and precision. We felt deeply connected to our ancestors.🔥🪔 " , name: "- Sandeep Kulkarni, Pune" },
+
+            { img: "1736422675161.jpg", text: "Excellent arrangements and a spiritually uplifting experience. Highly recommend these services in Gokarna! 🌊🏞️ ", name: "- Deepika Rao, Hyderabad" },
+            { img: "1736422675161.jpg", text: "I had been facing obstacles for years, but after the Pitrudosha pooja, everything started falling into place. 🌿🙏 " , name: "- Venkatesh Bhat, Mangalore" },
+            { img: "1736422675161.jpg", text: "The priests performed the Nagabali pooja with great sincerity. We felt truly blessed after the ceremony! 🐍🔥 " , name: "- Priya Nair, Kochi" },
+
+            { img: "1736422675161.jpg", text: "A well-organized and deeply spiritual experience. Thank you for helping us complete this important ritual. 🙌🕉️ ", name: "- Ravi Verma, Delhi" },
+            { img: "1736422675161.jpg", text: "The energy and atmosphere during the pooja were divine. We left with a sense of relief and fulfillment. 💫🪔 " , name: "- Meera Joshi, Mumbai" },
+            { img: "1736422675161.jpg", text: "Traveling to Gokarna for the pooja was the best decision. The experience brought peace and harmony to our lives. 🌊🕊️ " , name: "- Arun Deshmukh, Nagpur" },
+            { img: "1736422675161.jpg", text: "I highly recommend these pooja services for anyone seeking ancestral blessings and relief from doshas. 🕉️✨ ", name: "- Kavitha Reddy, Mysore" },
+
+        ];
+
+        let currentIndex = 0;
+        function updateTestimonial() {
+            document.getElementById("testimonial-img").src = testimonials[currentIndex].img;
+            document.getElementById("testimonial-text").innerText = testimonials[currentIndex].text;
+            document.getElementById("testimonial-name").innerText = testimonials[currentIndex].name;
+        }
+
+        function nextTestimonial() {
+            currentIndex = (currentIndex + 1) % testimonials.length;
+            updateTestimonial();
+        }
+
+        function prevTestimonial() {
+            currentIndex = (currentIndex - 1 + testimonials.length) % testimonials.length;
+            updateTestimonial();
+        }
+
+        setInterval(nextTestimonial, 3000);
+    </script>
 
 
     <!-- FontAwesome for Social Icons -->
@@ -2222,7 +2351,7 @@
             const images = [
                 "1736422675210.jpg",
                 "1736422675151.jpg",
-                "1736422675248 (1).jpg"
+                "1736422675161.jpg"
             ];
 
             let currentIndex = 0;
@@ -2238,7 +2367,7 @@
 
     <!-- testimonial -->
 
-  
+
 
     <!-- disbling th right click -->
     <!-- <script>
